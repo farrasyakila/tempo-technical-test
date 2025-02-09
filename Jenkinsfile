@@ -6,7 +6,7 @@ pipeline {
                 script {
                 if (env.BRANCH_NAME == 'prod') {
             sh '''
-            cd k8s-deployment/
+            cd code/
             docker build -t farrasyakila/laravel-9:$BUILD_NUMBER-prod .
             '''
                 }
@@ -20,9 +20,9 @@ pipeline {
         steps {
             script {
              if (env.BRANCH_NAME == 'prod') {
-            sh 
-            cd k8s-deployment/
-            'docker push farrasyakila/laravel-9:$BUILD_NUMBER-prod' 
+            sh '''
+            docker push farrasyakila/laravel-9:$BUILD_NUMBER-prod 
+            '''
                 }
                 else {
                     sh 'echo Nothing to Build'
