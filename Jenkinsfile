@@ -21,7 +21,7 @@ pipeline {
             script {
              if (env.BRANCH_NAME == 'prod') {
             sh '''
-            'docker push farrasyakila/laravel-9:$BUILD_NUMBER-prod' 
+            docker push farrasyakila/laravel-9:$BUILD_NUMBER-prod 
             '''
                 }
                 else {
