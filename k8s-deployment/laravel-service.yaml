@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: laravel-app
+  namespace: ns-laravel-app
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8000
+    targetPort: 80 #containerport
+  selector:
+    app: laravel-app

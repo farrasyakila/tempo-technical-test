@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata:
+  name: laravel-app
+  namespace: ns-laravel-app
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: laravel.farrasyakila.xyz
+    http:
+      paths:
+      - backend:
+          service:
+            name: laravel-app
+            port:
+              number: 8000
+        path: /
+        pathType: Prefix

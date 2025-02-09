@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app:
+    image: farrasyakila/laravel-9:prod
+    container_name: laravel
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+      - DB_DATABASE=laravel
+      - DB_USERNAME=farra
+      - DB_PASSWORD=123
+      - APP_KEY=base64:P1kTFqfaHA/O9o3eA+4D4ipFNlooFIKBkBK0EAcb/Tc=
+      - APP_DEBUG=true
+    ports:
+      - "8000:80"
+
+  db:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: farra
+      MYSQL_PASSWORD: 123
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:

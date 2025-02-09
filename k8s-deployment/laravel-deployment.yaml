@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laravel-app
+  namespace: ns-laravel-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: laravel-app
+  template:
+    metadata:
+      labels:
+        app: laravel-app
+    spec:
+      containers:
+      - name:  laravel-app
+        image: farrasyakila/laravel-9:prod
+        env : 
+        - name: DB_HOST
+          value: "mysql-laravel.ns-mysql.svc.cluster.local"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_DATABASE
+          value: "laravel"
+        - name: DB_USERNAME
+          value: "farra"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: laravel-app-secret
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              key: key
+              name: laravel-app-secret
+        - name: APP_DEBUG
+          value: "true"
+        resources:
+          limits:
+            cpu: "0.4"
+            memory: 500Mi
+          requests:
+            cpu: "0.1"
+            memory: 150Mi
+        ports:
+        - containerPort: 80
