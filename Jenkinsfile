@@ -37,7 +37,7 @@ pipeline {
                     sh '''
                         cd k8s-deployment/
                         # Replace image tag with the current BUILD_NUMBER
-                        sed -i "s|farrasyakila/laravel-9:prod|farrasyakila/laravel:${BUILD_NUMBER}-prod|" laravel-deployment.yaml
+                        sed -i "s|farrasyakila/laravel-9:prod|farrasyakila/laravel-9:${BUILD_NUMBER}-prod|" laravel-deployment.yaml
                     
                         cat laravel-deployment.yaml | grep image:
 
