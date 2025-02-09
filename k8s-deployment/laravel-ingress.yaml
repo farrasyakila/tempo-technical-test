@@ -3,6 +3,11 @@ kind: Ingress
 metadata:
   name: laravel-app
   namespace: ns-laravel-app
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true" # Redirect semua HTTP ke HTTPS
+    nginx.ingress.kubernetes.io/limit-rpm: "30" # Maksimal 30 request per menit dari satu IP
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "server: hide"; 
 spec:
   ingressClassName: nginx
   rules:
